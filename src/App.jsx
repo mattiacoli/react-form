@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import posts from './data/posts'
 
 function App() {
 
@@ -9,10 +9,13 @@ function App() {
       <h1 className='text-center my-3'>My Blog</h1>
 
       <div className="container">
-        <ul class="list-group list-group-numbered">
-          <li class="list-group-item">Item</li>
-          <li class="list-group-item">Item</li>
-          <li class="list-group-item">item</li>
+        <ul className="list-group list-group-numbered">
+          {
+            posts.map(post => (
+              <li key={post.id} className="list-group-item fs-4 fw-semibold">{post.title}</li>
+            ))
+          }
+
         </ul>
       </div>
 
