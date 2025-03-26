@@ -8,14 +8,20 @@ function App() {
 
   const [titles, setTitles] = useState(titlesList)
 
+  function handleDelete(index) {
+    setTitles(titles.filter((_, i) => i !== index));
+  }
+
+
   function handleForm(e) {
+
     e.preventDefault()
+
     console.log(newTitle);
 
     setTitles([newTitle, ...titles])
 
     console.log(titles);
-
 
     setNewTitle('')
 
@@ -30,7 +36,12 @@ function App() {
         <ul className="list-group list-group-numbered">
           {
             titles.map((title, index) => (
-              <li key={index} className="list-group-item fs-4 fw-semibold">{title}</li>
+              <li key={index} className="list-group-item fs-4 fw-semibold">
+                {title}
+                <button type="button" class="btn btn-danger "
+                  onClick={() => handleDelete(index)}>Delete</button>
+              </li>
+
             )
             )}
         </ul>
@@ -40,7 +51,7 @@ function App() {
             <div className="mb-3">
               <label htmlFor="" className="form-label fw-bold fs-3">Add New Post Title</label>
 
-              <p>{newTitle}</p>
+
 
               <div className="d-flex gap-1">
                 <input
