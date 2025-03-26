@@ -6,11 +6,21 @@ function App() {
 
   const [newTitle, setNewTitle] = useState('');
 
-  const [titles, setTitles] = useState(titlesList)
+  const [titles, setTitles] = useState(titlesList);
+
+  const [editIndex, setEditIndex] = useState(null)
 
   function handleDelete(index) {
     setTitles(titles.filter((_, i) => i !== index));
   }
+
+  function handleEdit(index) {
+    setEditIndex(index)
+    setNewTitle(titles[index])
+
+  }
+
+
 
 
   function handleForm(e) {
@@ -33,13 +43,25 @@ function App() {
       <h1 className='text-center my-3 fw-bolder text-info'>My Blog</h1>
 
       <div className="container">
-        <ul className="list-group list-group-numbered">
+        <ul className="list-group">
           {
             titles.map((title, index) => (
-              <li key={index} className="list-group-item fs-4 fw-semibold">
+              <li key={index} className="list-group-item fs-4 fw-semibold d-flex justify-content-between">
                 {title}
-                <button type="button" class="btn btn-danger "
-                  onClick={() => handleDelete(index)}>Delete</button>
+
+                <div className="actions">
+
+                  <button type="button"
+                    class="btn btn-warning mx-3"
+                    onClick={() => handleEdit(index)}
+                  >Edit</button>
+
+                  <button type="button"
+                    class="btn btn-danger"
+                    onClick={() => handleDelete(index)}>Delete</button>
+                </div>
+
+
               </li>
 
             )
