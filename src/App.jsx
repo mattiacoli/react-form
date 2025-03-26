@@ -8,6 +8,8 @@ function App() {
 
   const [titles, setTitles] = useState(titlesList);
 
+  const [error, setError] = useState(null)
+
   const [editIndex, setEditIndex] = useState(null)
 
   function handleDelete(index) {
@@ -29,11 +31,18 @@ function App() {
 
     console.log(newTitle);
 
-    setTitles([newTitle, ...titles])
+    if (newTitle.length <= 4) {
+      setError('Error! Task must be at leat 5 character long')
+    } else {
+      setError(null)
 
-    console.log(titles);
+      setTitles([newTitle, ...titles])
 
-    setNewTitle('')
+      console.log(titles);
+
+      setNewTitle('')
+    }
+
 
   }
 
@@ -42,7 +51,9 @@ function App() {
     <>
       <h1 className='text-center my-3 fw-bolder text-info'>My Blog</h1>
 
+
       <div className="container">
+        {error !== null ? (<div className='alert alert-danger'>{error}</div>) : ''}
         <ul className="list-group">
           {
             titles.map((title, index) => (
